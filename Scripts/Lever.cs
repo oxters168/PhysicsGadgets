@@ -29,44 +29,78 @@ namespace PhysicsGadgets
         /// </summary>
         [Tooltip("The degrees of rotation of the rotatable part that represents the off position")]
         public float offRotation;
-        /// <summary>
-        /// The minimum degrees offset from on or off to snap to that state
-        /// </summary>
-        [Tooltip("The minimum degrees offset from on or off to snap to that state")]
-        public float minOffset;
 
-        public bool isOn { get; private set; }
+        public bool isOn;
+        private bool currentlyOn;
+        private bool reached;
 
         [Space(10)]
         public BoolEvent onValueChanged;
 
+        private void Start()
+        {
+            currentlyOn = isOn;
+            onValueChanged?.Invoke(currentlyOn);
+        }
         private void Update()
         {
-            Vector3 currentEuler = rotatablePart.transform.localRotation.eulerAngles;
-            float degreesInAxis = currentEuler.Multiply(axis.normalized).magnitude;
-            if (degreesInAxis > 180)
-                degreesInAxis -= 360;
-            else if (degreesInAxis < -180)
-                degreesInAxis += 360;
-            
-            //For some reason the values need to be negated
-            float fixedOnRotation = -onRotation;
-            float fixedOffRotation = -offRotation;
+            bool leverOnOn = GetLeverIsOnOn();
 
-            float onOffset = Mathf.Abs(degreesInAxis - fixedOnRotation);
-            float offOffset = Mathf.Abs(degreesInAxis - fixedOffRotation);
+            bool wasOn = currentlyOn;
 
-            if (onOffset <= minOffset)
-                rotatablePart.SetAnchorRotation(Quaternion.AngleAxis(fixedOnRotation, axis), Space.Self);
-            else if (offOffset <= minOffset)
-                rotatablePart.SetAnchorRotation(Quaternion.AngleAxis(fixedOffRotation, axis), Space.Self);
+            if (reached)
+            {
+                if (isOn != currentlyOn)
+                {
+                    currentlyOn = isOn;
+                    reached = false;
+                }
+                else
+                {
+                    currentlyOn = leverOnOn;
+                    isOn = leverOnOn;
+                }
+            }
 
-            bool wasOn = isOn;
-            isOn = onOffset > offOffset;
-            if (!wasOn && isOn)
-                onValueChanged?.Invoke(isOn);
-            else if (wasOn && !isOn)
-                onValueChanged?.Invoke(isOn);
+            //We do it this way because we don't want to set reached to false freely
+            if (leverOnOn == currentlyOn)
+                reached = true;
+
+            SetLeverRotation(currentlyOn);
+
+            if (!wasOn && currentlyOn)
+                onValueChanged?.Invoke(currentlyOn);
+            else if (wasOn && !currentlyOn)
+                onValueChanged?.Invoke(currentlyOn);
+        }
+
+        private void SetLeverRotation(bool onOff)
+        {
+            rotatablePart.SetAnchorRotation(GetRotation(onOff), Space.Self);
+        }
+
+        public bool GetLeverIsOnOn()
+        {
+            float degreesInAxis = Vector3.SignedAngle(transform.up, rotatablePart.transform.up, transform.right);
+            float onOffset = Mathf.Abs(degreesInAxis - GetOnAngle());
+            float offOffset = Mathf.Abs(degreesInAxis - GetOffAngle());
+            return onOffset < offOffset; //I'm an idiot (or was since it's working now)
+        }
+        private Quaternion GetRotation(bool onOff)
+        {
+            if (onOff)
+                return Quaternion.AngleAxis(GetOnAngle(), axis);
+            else
+                return Quaternion.AngleAxis(GetOffAngle(), axis);
+        }
+
+        private float GetOnAngle()
+        {
+            return onRotation;
+        }
+        private float GetOffAngle()
+        {
+            return offRotation;
         }
     }
 }
