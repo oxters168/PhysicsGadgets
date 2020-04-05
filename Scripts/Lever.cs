@@ -48,14 +48,18 @@ namespace PhysicsGadgets
                 degreesInAxis -= 360;
             else if (degreesInAxis < -180)
                 degreesInAxis += 360;
+            
+            //For some reason the values need to be negated
+            float fixedOnRotation = -onRotation;
+            float fixedOffRotation = -offRotation;
 
-            float onOffset = Mathf.Abs(degreesInAxis - onRotation);
-            float offOffset = Mathf.Abs(degreesInAxis - offRotation);
+            float onOffset = Mathf.Abs(degreesInAxis - fixedOnRotation);
+            float offOffset = Mathf.Abs(degreesInAxis - fixedOffRotation);
 
             if (onOffset <= minOffset)
-                rotatablePart.SetAnchorRotation(Quaternion.AngleAxis(onRotation, axis), Space.Self);
+                rotatablePart.SetAnchorRotation(Quaternion.AngleAxis(fixedOnRotation, axis), Space.Self);
             else if (offOffset <= minOffset)
-                rotatablePart.SetAnchorRotation(Quaternion.AngleAxis(offRotation, axis), Space.Self);
+                rotatablePart.SetAnchorRotation(Quaternion.AngleAxis(fixedOffRotation, axis), Space.Self);
 
             bool wasOn = isOn;
             isOn = onOffset > offOffset;

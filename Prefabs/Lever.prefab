@@ -580,8 +580,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotatablePart: {fileID: 4308343251595948998}
   axis: {x: 1, y: 0, z: 0}
-  onRotation: -75
-  offRotation: 75
+  onRotation: 75
+  offRotation: -75
   minOffset: 60
   onValueChanged:
     m_PersistentCalls:

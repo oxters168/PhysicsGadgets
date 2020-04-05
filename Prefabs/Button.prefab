@@ -217,7 +217,7 @@ MonoBehaviour:
   parent: {fileID: 2503770547608641948}
   anchorPositionPercent: 1
   anchorRotationPercent: 1
-  localLinearLimit: 0.01
+  localLinearLimit: 0
   joint: {fileID: 0}
   counteractGravity: 1
   striveForPosition: 1
@@ -252,7 +252,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   clampStrength: 1
   lockedWorldDirections: 0
-  lockedLocalDirections: 0
+  lockedLocalDirections: 61
   minimumSpeedToBlock: 0.01
   striveForOrientation: 1
   rotation: {x: 0, y: 0, z: 0, w: 1}
