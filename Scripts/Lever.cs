@@ -81,7 +81,7 @@ namespace PhysicsGadgets
 
         public bool GetLeverIsOnOn()
         {
-            float degreesInAxis = Vector3.SignedAngle(transform.up, rotatablePart.transform.up, transform.right);
+            float degreesInAxis = Vector3.SignedAngle(transform.up, rotatablePart.transform.up, axis);
             float onOffset = Mathf.Abs(degreesInAxis - GetOnAngle());
             float offOffset = Mathf.Abs(degreesInAxis - GetOffAngle());
             return onOffset < offOffset; //I'm an idiot (or was since it's working now)
