@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8028357914132909874}
-  - component: {fileID: 3823875618176720580}
   - component: {fileID: 8028357914132909872}
   - component: {fileID: 8028357914132909839}
+  - component: {fileID: 2491420737379624066}
   m_Layer: 0
   m_Name: Stick
   m_TagString: Untagged
@@ -35,32 +35,6 @@ Transform:
   m_Father: {fileID: 8028357914817579243}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3823875618176720580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8028357914132909875}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6bee7ece2b3047489734eb3ca8ffe1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onCollisionStay:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 874244441829938131}
-        m_MethodName: CollisionStayListener
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!54 &8028357914132909872
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -172,6 +146,66 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &2491420737379624066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8028357914132909875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1242e26a5f5f214289a6607d2eda269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 8028357914817579243}
+  anchorPositionPercent: 0
+  anchorRotationPercent: 1
+  localLinearLimit: 3.4028235e+38
+  counteractGravity: 1
+  striveForPosition: 0
+  position: {x: 0, y: 0, z: 0}
+  strength: 1
+  maxForce: 500
+  calculateStrengthByDistance: 0
+  distanceDivisor: 5
+  strengthGraph:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  clampStrength: 1
+  lockedWorldDirections: 0
+  lockedLocalDirections: 0
+  minimumSpeedToBlock: 0.1
+  striveForOrientation: 1
+  rotation: {x: 0, y: 0, z: 0, w: 1}
+  frequency: 10
+  damping: 4
+  lockRotation: 0
+  striveForVelocity: 0
+  velocity: {x: 0, y: 0, z: 0}
+  velStrength: 1
+  velMaxForce: 500
 --- !u!1 &8028357914229452034
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,7 +233,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8028357914229452034}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.059999943, z: 0}
+  m_LocalPosition: {x: 0, y: 0.06, z: 0}
   m_LocalScale: {x: 0.02, y: 0.06, z: 0.02}
   m_Children: []
   m_Father: {fileID: 8028357914132909874}
@@ -261,10 +295,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 1.8
+  m_Radius: 0.5
+  m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0.2, z: -0.00000008940697}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8028357914570010421
 GameObject:
   m_ObjectHideFlags: 0
